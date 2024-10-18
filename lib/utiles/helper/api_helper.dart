@@ -10,7 +10,8 @@ class ApiHelper {
 
   Future<HomeModel?> quizApi() async {
     String link =
-        "https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple";
+        "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple"
+    ;
     var response = await http.get(
       Uri.parse(link),
     );
@@ -19,7 +20,7 @@ class ApiHelper {
       var json = jsonDecode(response.body);
 
       HomeModel model = HomeModel.mapToModel(json);
-      print("=============$json");
+
       return model;
     }
     return null;
