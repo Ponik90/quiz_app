@@ -22,7 +22,7 @@ Main features are as follows:
 Passed Time duration until now from birthdate
 Upcoming birthday time calculation
 ## 📲 Screenshots
-
+<p>
 <img align="left" src="https://github.com/user-attachments/assets/969970b9-0e83-4592-8e55-76b49529c1e7" width="220px">
 <img align="left" src="https://github.com/user-attachments/assets/60eca062-7896-4dd0-9763-920499e9750b" width="220px">
 <img src="https://github.com/user-attachments/assets/ed90033a-0043-4a30-9ac6-c7ff7c3dfd0b" width="220px">
@@ -30,7 +30,7 @@ Upcoming birthday time calculation
 <img align="left" src="https://github.com/user-attachments/assets/1d39d53c-366f-4a6a-86b1-3c25c8efd64d" width="220px">
 
 
-
+</p>
 <br><br>
 
 
