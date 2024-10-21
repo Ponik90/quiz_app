@@ -1,5 +1,6 @@
 import 'package:first_reexam/screen/category/model/category_model.dart';
 import 'package:first_reexam/screen/difficulty/controller/difficulty_controller.dart';
+import 'package:first_reexam/screen/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +13,7 @@ class DifficultyScreen extends StatefulWidget {
 
 class _DifficultyScreenState extends State<DifficultyScreen> {
   DifficultyController controller = Get.put(DifficultyController());
+  HomeController homeController = Get.put(HomeController());
   ListModel category = Get.arguments;
 
   @override
@@ -37,8 +39,13 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
               () => DropdownButton(
                 value: controller.selectQuestion.value,
                 dropdownColor: const Color(0xff405171),
+                hint: const Text(
+                  "Select",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
                 isExpanded: true,
-
                 items: const [
                   DropdownMenuItem(
                     value: 10,
@@ -47,34 +54,6 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  DropdownMenuItem(
-                    value: 20,
-                    child: Text(
-                      "20",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  DropdownMenuItem(
-                    value: 30,
-                    child: Text(
-                      "30",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  DropdownMenuItem(
-                    value: 40,
-                    child: Text(
-                      "40",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  DropdownMenuItem(
-                    value: 50,
-                    child: Text(
-                      "50",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
                 ],
                 onChanged: (value) {
                   controller.selectQuestion.value = value!;
@@ -150,33 +129,67 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
             ),
             Obx(
               () => InkWell(
-                  onTap: () {
-                    controller.selectDifficulty.value = "hard";
-                  },
-                  child: Container(
-                    height: 50,
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(8),
-                    width: MediaQuery.sizeOf(context).width,
-                    margin: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
+                onTap: () {
+                  controller.selectDifficulty.value = "hard";
+                },
+                child: Container(
+                  height: 50,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(8),
+                  width: MediaQuery.sizeOf(context).width,
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: controller.selectDifficulty.value != "hard"
+                        ? const Color(0xffCCDDE7)
+                        : const Color(0xffE98235),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Text(
+                    "Hard",
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 20,
                       color: controller.selectDifficulty.value != "hard"
-                          ? const Color(0xffCCDDE7)
-                          : const Color(0xffE98235),
-                      borderRadius: BorderRadius.circular(50),
+                          ? Colors.black
+                          : Colors.white,
                     ),
-                    child: Text(
-                      "Hard",
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: controller.selectDifficulty.value != "hard"
-                            ? Colors.black
-                            : Colors.white,
-                      ),
-                    ),
-                  )),
+                  ),
+                ),
+              ),
             ),
+            const Spacer(),
+            InkWell(
+              onTap: () {
+                homeController.getData(
+                  diff: controller.selectDifficulty.value,
+                  qa: controller.selectQuestion.value,
+                  id: category.id
+                );
+
+                Get.toNamed('home', arguments: [
+                  category.name,
+                  controller.selectQuestion.value
+                ]);
+
+              },
+              child: Container(
+                height: 50,
+                width: MediaQuery.sizeOf(context).width,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: const Color(0xffE98235),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: const Text(
+                  "Let's Start",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

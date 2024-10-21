@@ -8,10 +8,10 @@ class ApiHelper {
 
   ApiHelper._();
 
-  Future<HomeModel?> quizApi() async {
+  Future<HomeModel?> quizApi({int? cate, int? qa, String? diff}) async {
+    print("===========$qa===========$cate===========$diff");
     String link =
-        "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple"
-    ;
+        "https://opentdb.com/api.php?amount=$qa&category=$cate&difficulty=$diff&type=multiple";
     var response = await http.get(
       Uri.parse(link),
     );

@@ -1,5 +1,6 @@
 import 'package:first_reexam/screen/home/controller/home_controller.dart';
 import 'package:first_reexam/screen/home/model/home_model.dart';
+import 'package:first_reexam/screen/reward/controller/reward_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,12 +13,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeController homeController = Get.put(HomeController());
-  String category = Get.arguments;
+  List category = Get.arguments;
+  RewardController rewardController = Get.put(RewardController());
 
   @override
   void initState() {
     super.initState();
-    homeController.getData();
+    //homeController.getData();
   }
 
   @override
@@ -25,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          category,
+          category[0],
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color(0xff405171),
@@ -43,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
             List? l1 = [];
 
             for (var x in model!.resultModel!) {
+              //print("==========${x.category} ${x.question}");
               qu = x.question;
               l1 = x.wAnswer;
               cAns = x.cAnswer;
@@ -51,7 +54,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
               AllDataModel allDataModel =
                   AllDataModel(question: qu, cAns: cAns, optionList: l1);
+
               homeController.resultList.add(allDataModel);
+
+              print("============Alldatamodel ${allDataModel.question}");
+              print(
+                  "============list  ${homeController.resultList[0].question}");
             }
 
             return Padding(
@@ -391,15 +399,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .resultList[homeController.changeQ.value++]
                                     .cAns ==
                                 homeController.check.value) {
-                              homeController.write.value++;
+                              homeController.right.value++;
                               homeController.correctAnsList
-                                  .add(homeController.write.value);
+                                  .add(homeController.right.value);
                             }
-                            // model.resultModel![homeController.changeQ.value++];
+
+                            rewardController.getPercentage(category[1],
+                                homeController.correctAnsList.length);
                             homeController.selectOption.value = 0;
                             if (homeController.changeQ.value == 10) {
                               homeController.changeQ.value = 0;
+
                               Get.toNamed('reward');
+
                             }
                           }
                         },
@@ -430,6 +442,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           }
+
           return const Center(
             child: CircularProgressIndicator(),
           );

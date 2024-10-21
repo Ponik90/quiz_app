@@ -1,4 +1,5 @@
 import 'package:first_reexam/screen/category/controller/category_controller.dart';
+import 'package:first_reexam/screen/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +12,7 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen> {
   CategoryController categoryController = Get.put(CategoryController());
+  HomeController homeController = Get.put(HomeController());
 
   @override
   void initState() {
@@ -35,6 +37,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
+                        homeController.resultList.clear();
                         Get.toNamed('difficulty',
                             arguments: categoryController
                                 .model.value.category![index]);

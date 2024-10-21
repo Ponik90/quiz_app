@@ -7,6 +7,5 @@ class CategoryController extends GetxController {
 
   Future<void> getCategory() async {
     model.value = await JsonHelper.jsonHelper.getCategory();
-    print("===========s${model.value.category}");
   }
 }
